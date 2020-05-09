@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.libwuwind.player">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:name="com.libwuwind.MApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${APP_NAME}"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="com.libwuwind.test.TestActivity"></activity>
+        <activity
+            android:name="com.libwuwind.activity.launch.LaunchActivity"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.libwuwind.rtmpplayer.RtmpPlayerActivity"></activity>
+        <activity android:name="com.libwuwind.activity.capture.PushActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <meta-data
+            android:name="main"
+            android:value="${main}" />
+    </application>
+
+</manifest>

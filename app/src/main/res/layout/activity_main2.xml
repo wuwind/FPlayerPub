@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Main2Activity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.libwuwind.player.MImageView
+            android:id="@+id/imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+        <com.libwuwind.tffmpeg.VideoView
+            android:id="@+id/videoview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"  />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minEms="2"
+            android:text="0"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:minEms="2"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:minEms="2"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:minEms="2"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:text="play"
+        android:onClick="btn"
+        android:layout_height="wrap_content" />
+</LinearLayout>

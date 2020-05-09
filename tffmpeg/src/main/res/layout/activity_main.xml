@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.libwuwind.player.VideoView
+        android:id="@+id/videoView"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        />
+
+    <com.libwuwind.player.VideoView
+        android:id="@+id/videoView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="video"
+        android:onClick="btn" />
+    <Button
+        android:id="@+id/music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="music"
+        android:onClick="music" />
+    <Button
+        android:id="@+id/crop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:onClick="crop" />
+</LinearLayout>

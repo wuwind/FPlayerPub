@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/fplayer" />
+            <option value="$PROJECT_DIR$/greendaogenerator" />
+            <option value="$PROJECT_DIR$/mvp" />
+            <option value="$PROJECT_DIR$/netlibrary" />
+            <option value="$PROJECT_DIR$/palyer" />
+            <option value="$PROJECT_DIR$/shotlamb" />
+            <option value="$PROJECT_DIR$/tffmpeg" />
+            <option value="$PROJECT_DIR$/uilibrary" />
+            <option value="$PROJECT_DIR$/undercover" />
+            <option value="$PROJECT_DIR$/voice" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

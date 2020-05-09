@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_no"
+        style="@style/RecordTextStyle"
+        android:text="编号" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        style="@style/RecordTextStyle"
+        android:text="总数" />
+
+    <TextView
+        android:id="@+id/tv_normal"
+        style="@style/RecordTextStyle"
+        android:text="平民" />
+
+    <TextView
+        android:id="@+id/tv_undercover"
+        style="@style/RecordTextStyle"
+        android:text="卧底" />
+
+    <TextView
+        android:id="@+id/tv_blank"
+        style="@style/RecordTextStyle"
+        android:text="白板" />
+
+    <TextView
+        android:id="@+id/tv_audience"
+        style="@style/RecordTextStyle"
+        android:text="观众" />
+
+    <TextView
+        android:id="@+id/tv_words"
+        style="@style/RecordTextStyle"
+        android:layout_weight="2"
+        android:text="词组" />
+
+    <TextView
+        android:id="@+id/tv_winner"
+        style="@style/RecordTextStyle"
+        android:text="获胜" />
+
+</LinearLayout>

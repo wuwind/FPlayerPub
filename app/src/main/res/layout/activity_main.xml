@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.libwuwind.uilibrary.dragview.DragView
+        android:id="@+id/dragview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00ffffff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minEms="2"
+            android:text="0"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minEms="2"
+            android:text="0"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minEms="2"
+            android:text="0"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:minEms="2"
+            android:text="0"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/checkg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="picture" />
+
+            <RadioButton
+                android:id="@+id/video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="video" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#99999999"
+            android:text="crop" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#99999999"
+            android:text="rotete 30" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#99999999"
+            android:text="play video" />
+    </LinearLayout>
+</RelativeLayout>

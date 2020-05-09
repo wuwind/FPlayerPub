@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name_puller">Puller</string>
+    <string name="app_name_pusher">Pusher</string>
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:padding="20dp"
+        app:cardBackgroundColor="@android:color/black"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1号牌"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="翻过来" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:padding="20dp"
+        app:cardBackgroundColor="@android:color/black"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="词"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="记住了" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始"/>
+</FrameLayout>
