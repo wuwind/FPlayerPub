@@ -10,6 +10,7 @@ import com.wuwind.undercover.activity.play.dialog.FinishDialog;
 import com.wuwind.undercover.base.Constant;
 import com.wuwind.undercover.db.Game;
 import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.utils.StrConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class PlayActivity extends ActivityPresenter<PlayView, PlayModel> {
     private List<Integer> out = new ArrayList<>();
     private CardAdapter cardAdapter;
     private int undercoverNum, normalNum;
-    private List<Character> datas;
+    private List<Byte> datas;
     private FinishDialog dialog;
 
     @Override
@@ -28,14 +29,17 @@ public class PlayActivity extends ActivityPresenter<PlayView, PlayModel> {
         final long gameId = getIntent().getLongExtra("gameId", 0);
         game = modelDelegate.getGame(gameId);
         datas = new ArrayList<>();
-        for (char b : game.getSequence().toCharArray()) {
+        byte[] sequence = StrConverter.toByteArray(game.getSequence());
+        if(null == sequence)
+            return;
+        for (byte b : sequence) {
             datas.add(b);
         }
         cardAdapter = new CardAdapter(datas, out);
         viewDelegate.getRvCards().setAdapter(cardAdapter);
-        cardAdapter.setClickListener(new RecyclerBaseAdapter.OnItemClickListener<Character>() {
+        cardAdapter.setClickListener(new RecyclerBaseAdapter.OnItemClickListener<Byte>() {
             @Override
-            public void onItemClick(View view, Character data, int position) {
+            public void onItemClick(View view, Byte data, int position) {
                 for (int i = 0; i < out.size(); i++) {
                     if (out.get(i) == position) {
                         out.remove(i);
@@ -68,7 +72,7 @@ public class PlayActivity extends ActivityPresenter<PlayView, PlayModel> {
         undercoverNum = 0;
         normalNum = 0;
         for (int position : out) {
-            char data = datas.get(position);
+            byte data = datas.get(position);
             if (data == Constant.PersonType.UNDERCOVER) {
                 undercoverNum++;
             } else if (data == Constant.PersonType.NORMAL) {

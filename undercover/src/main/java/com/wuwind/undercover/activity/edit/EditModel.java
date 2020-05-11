@@ -44,7 +44,7 @@ public class EditModel extends ModelDelegate {
     }
 
     private void getSequence(Game game) {
-        char[] sequence = new char[game.getCount()];
+        byte[] sequence = new byte[game.getCount()];
         for (int i = 0; i < sequence.length; i++) {
             if (i < game.getNormal()) {
                 sequence[i] = Constant.PersonType.NORMAL;
@@ -57,7 +57,11 @@ public class EditModel extends ModelDelegate {
             }
         }
         shuffle(sequence);
-        game.setSequence(new String(sequence));
+        StringBuffer sb = new StringBuffer();
+        for (byte b : sequence) {
+            sb.append(b);
+        }
+        game.setSequence(sb.toString());
     }
 
     public boolean checkCount(Game game) {
@@ -67,9 +71,9 @@ public class EditModel extends ModelDelegate {
     /**
      * @return 洗牌算法
      */
-    private void shuffle(char[] sequence) {
+    private void shuffle(byte[] sequence) {
         int i = sequence.length, j;
-        char t;
+        byte t;
         while (i > 0) {
             j = (int) Math.floor(Math.random() * i--);
             t = sequence[i];

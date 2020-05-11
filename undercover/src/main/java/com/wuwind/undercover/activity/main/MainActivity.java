@@ -7,6 +7,7 @@ import com.wuwind.undercover.activity.play.PlayActivity;
 import com.wuwind.undercover.base.Constant;
 import com.wuwind.undercover.db.Game;
 import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.utils.StrConverter;
 
 public class MainActivity extends ActivityPresenter<MainView, MainModel> {
 
@@ -18,7 +19,7 @@ public class MainActivity extends ActivityPresenter<MainView, MainModel> {
     protected void bindEventListener() {
         long gameId = getIntent().getLongExtra("gameId", 0);
         game = modelDelegate.getGame(gameId);
-        if(null == game)
+        if (null == game)
             return;
         word = modelDelegate.getWord(game.getWord_id());
         viewDelegate.setListener(listener);
@@ -60,8 +61,10 @@ public class MainActivity extends ActivityPresenter<MainView, MainModel> {
     private void showFront() {
         if (null == game)
             return;
-        char[] sequence = game.getSequence().toCharArray();
-        int type = sequence[count-1];
+        byte[] sequence = StrConverter.toByteArray(game.getSequence());
+        if(null == sequence)
+            return;
+        int type = sequence[count - 1];
         switch (type) {
             case Constant.PersonType.NORMAL:
                 viewDelegate.showFront(word.getW1());

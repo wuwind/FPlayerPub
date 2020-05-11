@@ -5,6 +5,7 @@ import com.wuwind.undercover.db.Game;
 import com.wuwind.undercover.db.GameDao;
 import com.wuwind.undercover.db.Word;
 import com.wuwind.undercover.utils.LogUtil;
+import com.wuwind.undercover.utils.StrConverter;
 import com.wuwind.undercover.utils.db.DbUtils;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class MainModel extends ModelDelegate {
         List<Game> listBy = DbUtils.getGameService().findListBy(GameDao.Properties.Finish, 0);
 //        List<Game> listBy = DbUtils.getGameService().findAll();
         for (Game game : listBy) {
-            char[] sequence = game.getSequence().toCharArray();
+            byte[] sequence = StrConverter.toByteArray(game.getSequence());
             if (null != sequence) {
-                for (char b : sequence) {
+                for (byte b : sequence) {
                     LogUtil.e(b);
                 }
             }
