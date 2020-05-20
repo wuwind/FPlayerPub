@@ -26,14 +26,19 @@ public class PlayView extends ViewDelegate<Listener> implements View.OnClickList
     public void initWidget() {
         rvCards = rootView.findViewById(R.id.rv_cards);
         rvCards.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        rootView.findViewById(R.id.btn_refresh).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.btn_refresh:
+                listener.refresh();
+                break;
+        }
     }
 
     public interface Listener extends OnClick {
-
+        void refresh();
     }
 }

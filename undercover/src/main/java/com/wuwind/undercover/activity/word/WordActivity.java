@@ -1,6 +1,7 @@
 package com.wuwind.undercover.activity.word;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
@@ -90,6 +91,8 @@ public class WordActivity extends BaseActivity<WordView, WordModel> {
         List<WordBean> words = response.data;
         if(null != words) {
             for (WordBean word : words) {
+                if(TextUtils.isEmpty(word.getW1()) || TextUtils.isEmpty(word.getW2()))
+                    continue;
                 Word w = new Word();
                 w.setW1(word.getW1());
                 w.setW2(word.getW2());

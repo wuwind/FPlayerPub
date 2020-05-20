@@ -11,18 +11,28 @@ import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.main.MainActivity;
 import com.wuwind.undercover.activity.play.PlayActivity;
 import com.wuwind.undercover.activity.record.adapter.RecordAdapter;
+import com.wuwind.undercover.base.BaseActivity;
 import com.wuwind.undercover.db.Game;
+import com.wuwind.undercover.net.response.GameResponse;
+import com.wuwind.undercover.utils.LogUtil;
 
-public class RecordActivity extends ActivityPresenter<RecordView, RecordModel> {
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
 
     private AlertDialog.Builder newGameDialog;
     private Game clickGame;
     private RecordAdapter recordAdapter;
+    private List<Game> datas;
 
     @Override
     protected void bindEventListener() {
         RecyclerView rvRecord = viewDelegate.getRvRecord();
-        recordAdapter = new RecordAdapter(modelDelegate.getGames());
+        datas = modelDelegate.getGames();
+        recordAdapter = new RecordAdapter(datas);
         rvRecord.setAdapter(recordAdapter);
 
         recordAdapter.setClickListener(new RecyclerBaseAdapter.OnItemClickListener<Game>() {
@@ -51,6 +61,7 @@ public class RecordActivity extends ActivityPresenter<RecordView, RecordModel> {
                 finishMyself();
             }
         });
+        modelDelegate.getGamesNet();
     }
 
 
@@ -72,5 +83,27 @@ public class RecordActivity extends ActivityPresenter<RecordView, RecordModel> {
 //            newGameDialog = new AlertDialog()
         }
         newGameDialog.show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getGamesResponse(GameResponse response) {
+        List<Game> data = response.data;
+        if(null == data || data.isEmpty())
+            return;
+        boolean isUpdate;
+        for (Game datum : data) {
+            isUpdate = false;
+            for (Game game : datas) {
+                if(datum.getId().equals(game.getId())) {
+                    modelDelegate.updateGame(datum);
+                    isUpdate =true;
+                    break;
+                }
+            }
+            if(!isUpdate)
+                modelDelegate.inserteGame(datum);
+        }
+        datas = modelDelegate.getGames();
+        recordAdapter.setDatas(datas);
     }
 }

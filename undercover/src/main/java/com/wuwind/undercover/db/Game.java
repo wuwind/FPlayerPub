@@ -12,7 +12,7 @@ public class Game implements Cloneable {
 
     @Id(autoincrement = true)
     private Long id;
-    private Long word_id;
+    private Long wordId;
     private Integer count;
     private Integer normal;
     private Integer undercover;
@@ -31,9 +31,9 @@ public class Game implements Cloneable {
     }
 
     @Generated
-    public Game(Long id, Long word_id, Integer count, Integer normal, Integer undercover, Integer blank, Integer audience, String sequence, String out, Integer finish) {
+    public Game(Long id, Long wordId, Integer count, Integer normal, Integer undercover, Integer blank, Integer audience, String sequence, String out, Integer finish) {
         this.id = id;
-        this.word_id = word_id;
+        this.wordId = wordId;
         this.count = count;
         this.normal = normal;
         this.undercover = undercover;
@@ -62,12 +62,12 @@ public class Game implements Cloneable {
         this.id = id;
     }
 
-    public Long getWord_id() {
-        return word_id;
+    public Long getWordId() {
+        return wordId;
     }
 
-    public void setWord_id(Long word_id) {
-        this.word_id = word_id;
+    public void setWordId(Long wordId) {
+        this.wordId = wordId;
     }
 
     public Integer getCount() {

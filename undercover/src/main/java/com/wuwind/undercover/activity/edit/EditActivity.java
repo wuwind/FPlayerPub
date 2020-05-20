@@ -29,7 +29,7 @@ public class EditActivity extends ActivityPresenter<EditView, EditModel> {
                 } else {
                     wordIndex--;
                 }
-                game.setWord_id(words.get(wordIndex).getId());
+                game.setWordId(words.get(wordIndex).getId());
                 long newGameId = modelDelegate.saveGame(game);
                 modelDelegate.saveGameNet(game);
                 Intent intent = new Intent(EditActivity.this, MainActivity.class);

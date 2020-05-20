@@ -24,7 +24,7 @@ public class GameDao extends AbstractDao<Game, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "ID");
-        public final static Property Word_id = new Property(1, Long.class, "word_id", false, "WORD_ID");
+        public final static Property Word_id = new Property(1, Long.class, "wordId", false, "WORDID");
         public final static Property Count = new Property(2, Integer.class, "count", false, "COUNT");
         public final static Property Normal = new Property(3, Integer.class, "normal", false, "NORMAL");
         public final static Property Undercover = new Property(4, Integer.class, "undercover", false, "UNDERCOVER");
@@ -51,7 +51,7 @@ public class GameDao extends AbstractDao<Game, Long> {
         String constraint = ifNotExists ? "IF NOT EXISTS " : "";
         db.execSQL("CREATE TABLE " + constraint + "\"GAME\" (" + //
                 "\"ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"WORD_ID\" INTEGER," + // 1: word_id
+                "\"WORDID\" INTEGER," + // 1: wordId
                 "\"COUNT\" INTEGER," + // 2: count
                 "\"NORMAL\" INTEGER," + // 3: normal
                 "\"UNDERCOVER\" INTEGER," + // 4: undercover
@@ -79,9 +79,9 @@ public class GameDao extends AbstractDao<Game, Long> {
             stmt.bindLong(1, id);
         }
 
-        Long word_id = entity.getWord_id();
-        if (word_id != null) {
-            stmt.bindLong(2, word_id);
+        Long wordId = entity.getWordId();
+        if (wordId != null) {
+            stmt.bindLong(2, wordId);
         }
 
         Integer count = entity.getCount();
@@ -134,9 +134,9 @@ public class GameDao extends AbstractDao<Game, Long> {
             stmt.bindLong(1, id);
         }
 
-        Long word_id = entity.getWord_id();
-        if (word_id != null) {
-            stmt.bindLong(2, word_id);
+        Long wordId = entity.getWordId();
+        if (wordId != null) {
+            stmt.bindLong(2, wordId);
         }
 
         Integer count = entity.getCount();
@@ -188,7 +188,7 @@ public class GameDao extends AbstractDao<Game, Long> {
     public Game readEntity(Cursor cursor, int offset) {
         Game entity = new Game( //
                 cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-                cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // word_id
+                cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // wordId
                 cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // count
                 cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // normal
                 cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // undercover
@@ -204,7 +204,7 @@ public class GameDao extends AbstractDao<Game, Long> {
     @Override
     public void readEntity(Cursor cursor, Game entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setWord_id(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setWordId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setCount(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
         entity.setNormal(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
         entity.setUndercover(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));

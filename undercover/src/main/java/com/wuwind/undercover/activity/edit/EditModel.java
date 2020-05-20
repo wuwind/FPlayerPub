@@ -20,7 +20,7 @@ public class EditModel extends ModelDelegate {
     public void saveGameNet(Game game) {
         getSequence(game);
         GameAddRequest request = new GameAddRequest();
-        request.wordId = game.getWord_id();
+        request.wordId = game.getWordId();
         request.count= game.getCount();
         request.normal= game.getNormal();
         request.undercover= game.getUndercover();

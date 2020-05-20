@@ -21,7 +21,7 @@ public class MainActivity extends ActivityPresenter<MainView, MainModel> {
         game = modelDelegate.getGame(gameId);
         if (null == game)
             return;
-        word = modelDelegate.getWord(game.getWord_id());
+        word = modelDelegate.getWord(game.getWordId());
         viewDelegate.setListener(listener);
         viewDelegate.showBack(count);
     }

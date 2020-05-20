@@ -37,20 +37,24 @@ public class RecordAdapter extends RecyclerBaseAdapter<Game> {
 
             @Override
             public void refreshView(Game data, int position) {
-                tvNo.setText(position + 1 +"");
+                tvNo.setText(position + 1 +"-"+data.getId());
                 tvCount.setText(data.getCount().toString());
                 tvNormal.setText(data.getNormal().toString());
                 tvUndercover.setText(data.getUndercover().toString());
                 tvBlank.setText(data.getBlank().toString());
                 tvAudience.setText(data.getAudience().toString());
-                tvWords.setText(getWords(data.getWord_id()));
+                tvWords.setText(getWords(data.getWordId()));
                 tvWinner.setText(getWinner(data.getFinish()));
             }
         };
     }
 
-    private String getWords(long id) {
+    private String getWords(Long id) {
+        if(null == id)
+            return "";
         Word word = DbUtils.getWordService().findById(id);
+        if(null == word)
+            return "";
         return word.getW1() + "\n" + word.getW2();
     }
 
