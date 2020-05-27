@@ -94,6 +94,7 @@ public class WordActivity extends BaseActivity<WordView, WordModel> {
                 if(TextUtils.isEmpty(word.getW1()) || TextUtils.isEmpty(word.getW2()))
                     continue;
                 Word w = new Word();
+                w.setId(word.getId());
                 w.setW1(word.getW1());
                 w.setW2(word.getW2());
                 if(modelDelegate.addWords(w) != -2) {

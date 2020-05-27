@@ -1,6 +1,7 @@
 package com.wuwind.undercover.activity.play;
 
 
+import android.util.Log;
 import android.view.View;
 
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
@@ -142,5 +143,6 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         dialog.setNormal("平民词：" + word.getW1());
         dialog.setUndercover("卧底词：" + word.getW2());
         dialog.show();
+        modelDelegate.finishGameNet(game.getId());
     }
 }
