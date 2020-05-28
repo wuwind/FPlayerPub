@@ -24,7 +24,7 @@ public class GameDao extends AbstractDao<Game, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "ID");
-        public final static Property Word_id = new Property(1, Long.class, "wordId", false, "WORDID");
+        public final static Property WordId = new Property(1, Long.class, "wordId", false, "WORDID");
         public final static Property Count = new Property(2, Integer.class, "count", false, "COUNT");
         public final static Property Normal = new Property(3, Integer.class, "normal", false, "NORMAL");
         public final static Property Undercover = new Property(4, Integer.class, "undercover", false, "UNDERCOVER");

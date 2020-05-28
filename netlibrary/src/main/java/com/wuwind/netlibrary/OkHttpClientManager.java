@@ -664,7 +664,7 @@ public class OkHttpClientManager {
                             return;
                         }
                         Object o = mGson.fromJson("{'success':'false','msg':'服务器忙'}", callback.mType);
-                        LogUtil.e(response.message() + response.code());
+                        LogUtil.e("message "+response.message() + " code " + response.code());
                         com.wuwind.netlibrary.Response res = (com.wuwind.netlibrary.Response) o;
                         res.tag = call.request().tag();
                         sendSuccessResultCallback(o, callback);

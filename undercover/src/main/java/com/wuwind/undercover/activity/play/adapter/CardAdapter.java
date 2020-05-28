@@ -40,13 +40,13 @@ public class CardAdapter extends RecyclerBaseAdapter<PlayerBean> {
                 itemView.setBackgroundColor(Color.WHITE);
                 for (Integer aByte : out) {
                     if (aByte == position) {
-                        itemView.setBackgroundColor(Color.GRAY);
+                        itemView.setBackgroundColor(Color.LTGRAY);
                         switch (data.getType()) {
                             case Constant.PersonType.NORMAL:
-                                des = "平民";
+                                des = "平民" + "\n" + data.getWord();
                                 break;
                             case Constant.PersonType.UNDERCOVER:
-                                des = "卧底";
+                                des = "卧底" + "\n" + data.getWord();
                                 break;
                             case Constant.PersonType.BLANK:
                                 des = "白板";

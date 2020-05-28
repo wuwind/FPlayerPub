@@ -39,7 +39,7 @@ public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
             @Override
             public void onItemClick(View view, Game game, int position) {
                 clickGame = game;
-                if (game.getFinish() == null) {
+                if (game.getFinish() == 0) {
                     Intent intent = new Intent(RecordActivity.this, MainActivity.class);
                     intent.putExtra("gameId", game.getId());
                     startActivity(intent);

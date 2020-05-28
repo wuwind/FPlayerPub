@@ -20,8 +20,12 @@ public class PlayModel extends ModelDelegate {
         return DbUtils.getWordService().findById(wordId);
     }
 
-    public void finishGameNet(long gameId) {
-        new GameFinishRequest(gameId).requset();
+    public void finishGameNet(Game game) {
+        new GameFinishRequest(game).requset();
+    }
+
+    public void updateGameNet(Game game) {
+//        new GameFinishRequest(gameId, finish).requset();
     }
 
 //    public List<>

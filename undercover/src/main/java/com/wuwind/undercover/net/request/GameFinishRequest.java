@@ -1,6 +1,7 @@
 package com.wuwind.undercover.net.request;
 
 import com.wuwind.netlibrary.Request;
+import com.wuwind.undercover.db.Game;
 import com.wuwind.undercover.net.response.GameFinishResponse;
 
 /**
@@ -8,14 +9,16 @@ import com.wuwind.undercover.net.response.GameFinishResponse;
  * Description ：
  */
 public class GameFinishRequest extends Request<GameFinishResponse> {
-    public GameFinishRequest(long gameId) {
-        this.gameId = gameId;
+
+    public Game game;
+
+    public GameFinishRequest(Game game) {
+        this.game = game;
     }
 
-    public long gameId;
 
     @Override
     public String url() {
-        return "/finish";
+        return "/updateGame";
     }
 }

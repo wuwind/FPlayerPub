@@ -127,7 +127,7 @@ public class Game implements Cloneable {
     }
 
     public Integer getFinish() {
-        return finish;
+        return finish == null ? 0 : finish;
     }
 
     public void setFinish(Integer finish) {

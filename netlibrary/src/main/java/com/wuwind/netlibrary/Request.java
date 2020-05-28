@@ -50,27 +50,74 @@ public abstract class Request<T extends Response> {
         if (null == map) {
             map = new HashMap<>();
 
-            Field[] fields = getClass().getFields();
-            for (Field field : fields) {
-                String name = field.getName();
-                if ((modifiers & field.getModifiers()) != 0) {
-                    continue;
-                }
-                try {
-                    String o = String.valueOf(field.get(this));
-                    if (null == o || "null".equals(o))
-                        continue;
-                    map.put(name, o);
-
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
+//            Field[] fields = getClass().getFields();
+//            for (Field field : fields) {
+//                String name = field.getName();
+//                if ((modifiers & field.getModifiers()) != 0) {
+//                    continue;
+//                }
+//                try {
+//                    String o = String.valueOf(field.get(this));
+//                    if ("null".equals(o))
+//                        continue;
+//                    map.put(name, o);
+//
+//                } catch (IllegalAccessException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+            getValue(this, map);
         }
         for (String s : map.keySet()) {
             LogUtil.e(s + ":" + map.get(s));
         }
         OkHttpClientManager.postAsyn(getUrl(), new Callback(getSuperclassTypeParameter(getClass()), unPostLoading, isShowToast), map, tag);
+    }
+
+    /**
+     * 递归获取对象里的基本数据类型值，重复覆盖
+     * @param mObj
+     */
+    private void getValue(Object mObj, Map map) {
+        if(null == mObj)
+            return;
+        Field[] fields = mObj.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            String name = field.getName();
+            if ((modifiers & field.getModifiers()) != 0) {
+                continue;
+            }
+            try {
+                field.setAccessible(true);
+                Object obj = field.get(mObj);
+                if(obj == null)
+                    continue;
+                if(!isPrimitive(obj)) {
+                    getValue(obj, map);
+                    continue;
+                }
+                String o = String.valueOf(field.get(mObj));
+                if ("null".equals(o))
+                    continue;
+                map.put(name, o);
+//                System.out.println(name +" "+o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static boolean isPrimitive(Object obj) {
+//		System.out.println(obj);
+        try {
+            Class<?> c = ((Class<?>)obj.getClass().getField("TYPE").get(null));
+            //System.out.println(c);
+            return c.isPrimitive();
+        } catch (Exception e) {
+            if(obj instanceof String)
+                return true;
+            return false;
+        }
     }
 
     protected String getUrl() {

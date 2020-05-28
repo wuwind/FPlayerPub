@@ -15,6 +15,7 @@ import com.wuwind.undercover.db.Game;
 import com.wuwind.undercover.db.User;
 import com.wuwind.undercover.db.Word;
 import com.wuwind.undercover.net.request.UserRequest;
+import com.wuwind.undercover.net.response.GameFinishResponse;
 import com.wuwind.undercover.net.response.UserResponse;
 import com.wuwind.undercover.utils.StrConverter;
 
@@ -22,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
@@ -37,6 +39,8 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
     protected void bindEventListener() {
         final long gameId = getIntent().getLongExtra("gameId", 0);
         game = modelDelegate.getGame(gameId);
+        game.setFinish(1);
+        modelDelegate.finishGameNet(game);
         datas = new ArrayList<>();
         byte[] sequence = StrConverter.toByteArray(game.getSequence());
         if (null == sequence)
@@ -60,6 +64,7 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
                     }
                 }
                 out.add(position);
+                Log.e("palyactivity"," out "+Arrays.toString(out.toArray()));
                 cardAdapter.notifyItemChanged(position);
                 check();
                 toast(data.getWord());
@@ -69,12 +74,6 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         dialog = new FinishDialog(this, new FinishDialog.Listener() {
             @Override
             public void finish() {
-                char[] outs = new char[out.size()];
-                for (int i = 0; i < out.size(); i++) {
-                    outs[i] = (char) (int) out.get(i);
-                }
-                game.setOut(new String(outs));
-                modelDelegate.updateGame(game);
                 finishMyself();
             }
         });
@@ -85,6 +84,20 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
             }
         });
         new UserRequest().requset();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        game.setOut(Arrays.toString(out.toArray()));
+        Log.e("palyactivity"," out "+game.getOut());
+        modelDelegate.updateGame(game);
+        modelDelegate.finishGameNet(game);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getGameFinishResponse(GameFinishResponse response) {
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -127,12 +140,12 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         }
         if (undercoverNum == game.getUndercover()) {
             showFinishDialog("平民获胜");
-            game.setFinish(1);
+            game.setFinish(2);
 
         }
         if (normalNum == game.getNormal()) {
             showFinishDialog("卧底获胜");
-            game.setFinish(2);
+            game.setFinish(3);
         }
     }
 
@@ -143,6 +156,5 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         dialog.setNormal("平民词：" + word.getW1());
         dialog.setUndercover("卧底词：" + word.getW2());
         dialog.show();
-        modelDelegate.finishGameNet(game.getId());
     }
 }
