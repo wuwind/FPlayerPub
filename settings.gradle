@@ -1,2 +1,4 @@
 include ':app', ':palyer', ':uilibrary', ':fplayer',':tffmpeg',':mvp', ':shotlamb', ':voice', ':undercover', ':greendaogenerator'
 include ':netlibrary'
+include ':NetworkCaptureSelf'
+project(':NetworkCaptureSelf').projectDir = new File('../NetworkCaptureSelf/library')

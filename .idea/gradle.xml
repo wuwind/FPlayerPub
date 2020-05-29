@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/uilibrary" />
             <option value="$PROJECT_DIR$/undercover" />
             <option value="$PROJECT_DIR$/voice" />
+            <option value="$PROJECT_DIR$/../NetworkCaptureSelf/library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 
+import com.ding.library.CaptureInfoInterceptor;
 import com.google.gson.Gson;
 import com.wuwind.netlibrary.utils.LogUtil;
 
@@ -48,7 +49,7 @@ public class OkHttpClientManager {
     private static final String TAG = "OkHttpClientManager";
 
     private OkHttpClientManager() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(new CaptureInfoInterceptor());
 
         builder.connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(5, TimeUnit.SECONDS)

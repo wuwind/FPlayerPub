@@ -108,10 +108,8 @@ public abstract class Request<T extends Response> {
     }
 
     private static boolean isPrimitive(Object obj) {
-//		System.out.println(obj);
         try {
             Class<?> c = ((Class<?>)obj.getClass().getField("TYPE").get(null));
-            //System.out.println(c);
             return c.isPrimitive();
         } catch (Exception e) {
             if(obj instanceof String)
