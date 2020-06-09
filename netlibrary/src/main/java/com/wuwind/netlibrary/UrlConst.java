@@ -4,8 +4,8 @@ public interface UrlConst {
 
 
 //    String  URL = "http://116.52.3.170:3579/witness";
-//    String  URL = "http://120.79.223.156:8090/undercover/api";
-    String  URL = "http://172.18.0.6:8080/undercover/api";
+    String  URL = "https://nyxkkkw.icu:8090/undercover/api";
+//    String  URL = "http://172.18.0.6:8080/undercover/api";
     String URL_IP = "http://116.52.3.170:3579";
     String SOCKET_URL =  "ws://116.52.3.170:3579/witness";
 

@@ -2,3 +2,5 @@ include ':app', ':palyer', ':uilibrary', ':fplayer',':tffmpeg',':mvp', ':shotlam
 include ':netlibrary'
 include ':NetworkCaptureSelf'
 project(':NetworkCaptureSelf').projectDir = new File('../NetworkCaptureSelf/library')
+include ':testjiagu'
+include ':testjiaguproxy'
