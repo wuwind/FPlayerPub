@@ -10,25 +10,25 @@
         android:padding="10dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_word1"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="词1"
+            android:text="房间名称"
+            android:gravity="center"
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/et_word2"
+            android:id="@+id/et_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="词2"
+            android:hint="房间"
             android:padding="10dp" />
 
         <Button
             android:id="@+id/btn_confirm"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="添加" />

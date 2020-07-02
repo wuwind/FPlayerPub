@@ -33,6 +33,11 @@ public class LauncherActivity extends ActivityPresenter<LauncherView, LauncherMo
             public void newClick() {
                 startActivity(new Intent(LauncherActivity.this, EditActivity.class));
             }
+
+            @Override
+            public void roomClick() {
+
+            }
         });
         Room room = new Room();
         room.setName("007");

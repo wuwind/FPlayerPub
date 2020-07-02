@@ -19,6 +19,7 @@ public class LauncherView extends ViewDelegate<Listener> implements View.OnClick
         rootView.findViewById(R.id.btn_words).setOnClickListener(this);
         rootView.findViewById(R.id.btn_record).setOnClickListener(this);
         rootView.findViewById(R.id.btn_new).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_room).setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +34,9 @@ public class LauncherView extends ViewDelegate<Listener> implements View.OnClick
             case R.id.btn_new:
                 listener.newClick();
                 break;
+            case R.id.btn_room:
+                listener.roomClick();
+                break;
         }
     }
 
@@ -42,5 +46,7 @@ public class LauncherView extends ViewDelegate<Listener> implements View.OnClick
         void recordClick();
 
         void newClick();
+
+        void roomClick();
     }
 }
