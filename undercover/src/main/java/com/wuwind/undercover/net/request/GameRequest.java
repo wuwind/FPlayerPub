@@ -9,6 +9,9 @@ import com.wuwind.undercover.net.response.WordResponse;
  * Description ：
  */
 public class GameRequest extends Request<GameResponse> {
+
+    public Integer roomId;
+
     @Override
     public String url() {
         return "/games";

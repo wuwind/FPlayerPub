@@ -1,6 +1,7 @@
 package com.wuwind.undercover.net.request;
 
 import com.wuwind.netlibrary.Request;
+import com.wuwind.undercover.db.litepal.Room;
 import com.wuwind.undercover.net.response.RoomAddResponse;
 import com.wuwind.undercover.net.response.RoomUpdateResponse;
 
@@ -10,16 +11,11 @@ import com.wuwind.undercover.net.response.RoomUpdateResponse;
  */
 public class RoomUpdateRequest extends Request<RoomUpdateResponse> {
 
-    public String name;
-    public int open;
-    public int mLock;
-    public int id;
+    public Room room;
 
-    public RoomUpdateRequest(int id,String name, int open,int mLock) {
-        this.id = id;
-        this.name = name;
-        this.open = open;
-        this.mLock = mLock;
+    public RoomUpdateRequest(Room room) {
+        room.setId(room.getServiceId());
+        this.room = room;
     }
 
     @Override

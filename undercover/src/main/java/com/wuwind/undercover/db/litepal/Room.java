@@ -6,8 +6,7 @@ import org.litepal.crud.LitePalSupport;
  * Created by wuhf on 2020/6/30.
  * Description ：
  */
-public class Room extends LitePalSupport {
-    private int id;
+public class Room extends DbSupport {
     private String name;
     private int num;
     private int gameCount;
@@ -15,14 +14,14 @@ public class Room extends LitePalSupport {
     private int open;
     private String password;
     private int mLock;
+    private int del;
 
-
-    public int getId() {
-        return id;
+    public int getDel() {
+        return del;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDel(int del) {
+        this.del = del;
     }
 
     public int getGameCount() {
@@ -84,7 +83,6 @@ public class Room extends LitePalSupport {
     @Override
     public String toString() {
         return "Room{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", num=" + num +
                 ", gameCount=" + gameCount +
@@ -92,6 +90,7 @@ public class Room extends LitePalSupport {
                 ", open=" + open +
                 ", password='" + password + '\'' +
                 ", mLock=" + mLock +
+                ", del=" + del +
                 '}';
     }
 }

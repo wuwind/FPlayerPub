@@ -11,9 +11,25 @@
         android:layout_weight="1"
         android:padding="10dp" />
 
-    <Button
-        android:id="@+id/btn_refresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:text="刷新"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <Switch
+            android:id="@+id/sw_show"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="身份" />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:layout_width="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="刷新" />
+    </LinearLayout>
+
+
 </LinearLayout>

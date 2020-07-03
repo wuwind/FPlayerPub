@@ -4,52 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
-
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="名称" />
+        android:layout_gravity="right"
+        android:layout_marginLeft="30dp"
+        android:text="编辑" />
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
+    <include layout="@layout/item_game_record" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
         android:layout_marginTop="10dp"
-        android:layout_height="wrap_content" />
-
-    <Switch
-        android:id="@+id/open"
         android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_height="wrap_content"
-        android:text="open" />
-
-    <Switch
-        android:id="@+id/lock"
-        android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_height="wrap_content"
-        android:text="lock" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="删除" />
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:layout_height="wrap_content"
-            android:text="保存" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

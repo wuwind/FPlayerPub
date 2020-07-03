@@ -1,7 +1,7 @@
 package com.wuwind.undercover.net.response;
 
 import com.wuwind.netlibrary.Response;
-import com.wuwind.undercover.db.Game;
+import com.wuwind.undercover.db.litepal.Game;
 
 import java.util.List;
 

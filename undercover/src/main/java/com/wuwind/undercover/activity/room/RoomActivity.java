@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
-import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.room.adapter.RoomAdapter;
 import com.wuwind.undercover.activity.room.detail.RoomDetailActivity;
+import com.wuwind.undercover.activity.room.edit.RoomEditActivity;
 import com.wuwind.undercover.activity.room.dialog.AddRoomDialog;
 import com.wuwind.undercover.base.BaseActivity;
 import com.wuwind.undercover.db.litepal.Room;
@@ -23,7 +23,6 @@ import java.util.List;
 
 public class RoomActivity extends BaseActivity<RoomView, RoomModel> {
 
-    private RoomAdapter adapter;
     private RoomAdapter roomAdapter;
     private List<Room> all;
 
@@ -74,19 +73,33 @@ public class RoomActivity extends BaseActivity<RoomView, RoomModel> {
     public void getRoomsNet(RoomResponse response) {
         LogUtil.e(response.data.toString());
         boolean inset;
+//        for (Room room : response.data) {
+//            inset = true;
+//            room.setServiceId(room.getId());
+//            for (Room room1 : all) {
+//                if (room.getServiceId() == room1.getServiceId()) {
+//                    inset = false;
+//                    if (room.getDel() == 1) {
+//                        room1.delete();
+//                    } else {
+//                        room.update(room1.getId());
+//                    }
+//                    break;
+//                }
+//            }
+//            if (inset && room.getDel() != 1) {
+//                boolean save = room.save();
+//                LogUtil.e("save:" + save);
+//            }
+//        }
         for (Room room : response.data) {
-            inset = true;
-            for (Room room1 : all) {
-                if (room.getName().equals(room1.getName())) {
-                    inset = false;
-                    break;
-                }
-            }
-            if (inset) {
-                boolean save = room.save();
-                LogUtil.e("save:" + save);
+            if(room.getDel() == 1) {
+                room.delFromService();
+            } else {
+                room.saveFromService();
             }
         }
         refresh();
     }
+
 }

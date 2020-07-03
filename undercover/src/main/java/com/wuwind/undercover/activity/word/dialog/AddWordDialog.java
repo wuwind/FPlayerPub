@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.wuwind.undercover.R;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Word;
 
 public class AddWordDialog extends Dialog {
     private Listener listener;

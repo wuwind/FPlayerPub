@@ -10,8 +10,7 @@ import com.wuwind.undercover.activity.word.adapter.WordAdapter;
 import com.wuwind.undercover.activity.word.dialog.AddWordDialog;
 import com.wuwind.undercover.activity.word.dialog.SelectWordDialog;
 import com.wuwind.undercover.base.BaseActivity;
-import com.wuwind.undercover.bean.WordBean;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Word;
 import com.wuwind.undercover.net.response.WordAddResponse;
 import com.wuwind.undercover.net.response.WordResponse;
 
@@ -68,13 +67,13 @@ public class WordActivity extends BaseActivity<WordView, WordModel> {
                 @Override
                 public void add(Word word) {
                     modelDelegate.addWordsNet(word);
-                    long code = modelDelegate.addWords(word);
+//                    long code = modelDelegate.addWords(word);
 //                    if (code == -2) {
 //                        toast("重复了");
 //                        return;
 //                    }
 //                    toast("添加成功");
-                    adapter.addData(word);
+//                    adapter.addData(word);
                 }
             });
         addWordDialog.show();
@@ -88,19 +87,14 @@ public class WordActivity extends BaseActivity<WordView, WordModel> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getWordsResponse(WordResponse response) {
-        List<WordBean> words = response.data;
-        if(null != words) {
-            for (WordBean word : words) {
-                if(TextUtils.isEmpty(word.getW1()) || TextUtils.isEmpty(word.getW2()))
-                    continue;
-                Word w = new Word();
-                w.setId(word.getId());
-                w.setW1(word.getW1());
-                w.setW2(word.getW2());
-                if(modelDelegate.addWords(w) != -2) {
-                    adapter.addData(w);
+        if(response.code == 1) {
+            List<Word> words = response.data;
+            if(null != words) {
+                for (Word word : words) {
+                    word.saveFromService();
                 }
             }
+            adapter.setDatas(modelDelegate.getWords());
         }
     }
 }

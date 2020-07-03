@@ -8,6 +8,7 @@ import com.wuwind.undercover.net.response.WordResponse;
  * Description ：
  */
 public class WordRequest extends Request<WordResponse> {
+
     @Override
     public String url() {
         return "/getAllWords";

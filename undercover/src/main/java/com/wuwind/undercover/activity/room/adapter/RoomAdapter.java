@@ -29,7 +29,7 @@ public class RoomAdapter extends RecyclerBaseAdapter<Room> {
 
             @Override
             public void refreshView(Room data, int position) {
-                tvWord.setText(data.getName() + "\n" + data.getId());
+                tvWord.setText(data.getName() + "\n" + data.getServiceId());
             }
         };
     }

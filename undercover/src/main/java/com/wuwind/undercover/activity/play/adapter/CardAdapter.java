@@ -11,12 +11,25 @@ import com.libwuwind.uilibrary.recyclerview.RecyclerBaseHolder;
 import com.wuwind.undercover.R;
 import com.wuwind.undercover.base.Constant;
 import com.wuwind.undercover.bean.PlayerBean;
+import com.wuwind.undercover.db.litepal.Word;
 
 import java.util.List;
 
 public class CardAdapter extends RecyclerBaseAdapter<PlayerBean> {
 
     private List<Integer> out;
+
+    private Word word;
+    private boolean isShowType;
+
+    public void setWord(Word word) {
+        this.word = word;
+    }
+
+    public void showType(boolean isShowType) {
+        this.isShowType = isShowType;
+        notifyDataSetChanged();
+    }
 
     public CardAdapter(List<PlayerBean> datas, List<Integer> out) {
         super(datas);
@@ -43,16 +56,28 @@ public class CardAdapter extends RecyclerBaseAdapter<PlayerBean> {
                         itemView.setBackgroundColor(Color.LTGRAY);
                         switch (data.getType()) {
                             case Constant.PersonType.NORMAL:
-                                des = "平民" + "\n" + data.getWord();
+                                if (isShowType) {
+                                    des = "平民\n";
+                                }
+                                if (null != word) {
+                                    des += word.getW1();
+                                }
                                 break;
                             case Constant.PersonType.UNDERCOVER:
-                                des = "卧底" + "\n" + data.getWord();
+                                if (isShowType) {
+                                    des = "卧底\n";
+                                }
+                                if (null != word) {
+                                    des += word.getW2();
+                                }
                                 break;
                             case Constant.PersonType.BLANK:
-                                des = "白板";
+                                if (isShowType)
+                                    des = "白板";
                                 break;
                             case Constant.PersonType.AUDIENCE:
-                                des = "观众";
+                                if (isShowType)
+                                    des = "观众";
                                 break;
                         }
                         break;

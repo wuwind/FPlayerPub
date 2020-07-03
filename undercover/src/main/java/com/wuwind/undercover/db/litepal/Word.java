@@ -7,31 +7,12 @@ import org.litepal.crud.LitePalSupport;
 /**
  * Entity mapped to table "WORD".
  */
-public class Word extends LitePalSupport {
+public class Word extends DbSupport {
 
-    private Long id;
     private String w1;
     private String w2;
 
     public Word() {
-    }
-
-    public Word(Long id) {
-        this.id = id;
-    }
-
-    public Word(Long id, String w1, String w2) {
-        this.id = id;
-        this.w1 = w1;
-        this.w2 = w2;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getW1() {

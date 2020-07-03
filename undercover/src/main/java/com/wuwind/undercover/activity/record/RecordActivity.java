@@ -87,23 +87,23 @@ public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getGamesResponse(GameResponse response) {
-        List<Game> data = response.data;
-        if(null == data || data.isEmpty())
-            return;
-        boolean isUpdate;
-        for (Game datum : data) {
-            isUpdate = false;
-            for (Game game : datas) {
-                if(datum.getId().equals(game.getId())) {
-                    modelDelegate.updateGame(datum);
-                    isUpdate =true;
-                    break;
-                }
-            }
-            if(!isUpdate)
-                modelDelegate.inserteGame(datum);
-        }
-        datas = modelDelegate.getGames();
-        recordAdapter.setDatas(datas);
+//        List<Game> data = response.data;
+//        if(null == data || data.isEmpty())
+//            return;
+//        boolean isUpdate;
+//        for (Game datum : data) {
+//            isUpdate = false;
+//            for (Game game : datas) {
+//                if(datum.getId().equals(game.getId())) {
+//                    modelDelegate.updateGame(datum);
+//                    isUpdate =true;
+//                    break;
+//                }
+//            }
+//            if(!isUpdate)
+//                modelDelegate.inserteGame(datum);
+//        }
+//        datas = modelDelegate.getGames();
+//        recordAdapter.setDatas(datas);
     }
 }

@@ -10,7 +10,8 @@ import com.wuwind.undercover.net.response.WordResponse;
  */
 public class UserRequest extends Request<UserResponse> {
 
-    public Long gameId;
+    public Integer gameId;
+    public Integer roomId;
 
     @Override
     public String url() {

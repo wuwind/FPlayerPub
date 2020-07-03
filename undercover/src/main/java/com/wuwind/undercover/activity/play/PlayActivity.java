@@ -11,16 +11,18 @@ import com.wuwind.undercover.activity.play.dialog.FinishDialog;
 import com.wuwind.undercover.base.BaseActivity;
 import com.wuwind.undercover.base.Constant;
 import com.wuwind.undercover.bean.PlayerBean;
-import com.wuwind.undercover.db.Game;
-import com.wuwind.undercover.db.User;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Word;
+import com.wuwind.undercover.db.litepal.Game;
+import com.wuwind.undercover.db.litepal.User;
 import com.wuwind.undercover.net.request.UserRequest;
 import com.wuwind.undercover.net.response.GameFinishResponse;
 import com.wuwind.undercover.net.response.UserResponse;
+import com.wuwind.undercover.net.response.WordByIdResponse;
 import com.wuwind.undercover.utils.StrConverter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +31,7 @@ import java.util.List;
 public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
 
     private Game game;
+    private Word word;
     private List<Integer> out = new ArrayList<>();
     private CardAdapter cardAdapter;
     private int undercoverNum, normalNum;
@@ -37,12 +40,15 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
 
     @Override
     protected void bindEventListener() {
-        final long gameId = getIntent().getLongExtra("gameId", 0);
-        game = modelDelegate.getGame(gameId);
-        game.setFinish(1);
-        modelDelegate.finishGameNet(game);
+        int gameId = getIntent().getIntExtra("gameId", 0);
+        this.game = modelDelegate.getGame(gameId);
+        if (null == game) {
+            toast("没有找到游戏");
+            finish();
+            return;
+        }
         datas = new ArrayList<>();
-        byte[] sequence = StrConverter.toByteArray(game.getSequence());
+        byte[] sequence = StrConverter.toByteArray(this.game.getSequence());
         if (null == sequence)
             return;
         for (byte b : sequence) {
@@ -51,6 +57,8 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
             datas.add(bean);
         }
         cardAdapter = new CardAdapter(datas, out);
+        word = modelDelegate.getWordLocal(game.getWordId());
+        cardAdapter.setWord(word);
         viewDelegate.getRvCards().setAdapter(cardAdapter);
         cardAdapter.setClickListener(new RecyclerBaseAdapter.OnItemClickListener<PlayerBean>() {
             @Override
@@ -64,10 +72,9 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
                     }
                 }
                 out.add(position);
-                Log.e("palyactivity"," out "+Arrays.toString(out.toArray()));
+                Log.e("palyactivity", " out " + Arrays.toString(out.toArray()));
                 cardAdapter.notifyItemChanged(position);
                 check();
-                toast(data.getWord());
             }
 
         });
@@ -80,17 +87,23 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         viewDelegate.setListener(new PlayView.Listener() {
             @Override
             public void refresh() {
-                new UserRequest().requset();
+                modelDelegate.getUserFromNet(game.getRoomId());
+            }
+
+            @Override
+            public void showType(boolean isChecked) {
+                cardAdapter.showType(isChecked);
             }
         });
-        new UserRequest().requset();
+        modelDelegate.getUserFromNet(game.getRoomId());
+        modelDelegate.getWordFromNet(game.getWordId());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         game.setOut(Arrays.toString(out.toArray()));
-        Log.e("palyactivity"," out "+game.getOut());
+        Log.e("palyactivity", " out " + game.getOut());
         modelDelegate.updateGame(game);
         modelDelegate.finishGameNet(game);
     }
@@ -101,28 +114,25 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getWordByIdResponse(WordByIdResponse response) {
+        if (response.code == 1) {
+            word = response.data;
+            cardAdapter.setWord(word);
+            word.saveFromService();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void getUsersResponse(UserResponse response) {
         List<User> users = response.data;
         if (null == users || users.isEmpty()) {
             return;
         }
-        for (User user : users) {
-            if (user.getGameId().longValue() == game.getId().longValue()) {
-                String users1 = user.getUsers();
-                String[] split = users1.split(",");
-                String wordIS = user.getWordIS();
-                String wordsStr = user.getWords();
-                String[] index = wordIS.split(",");
-                String[] words = wordsStr.split(",");
-                for (int i = 0; i < index.length; i++) {
-                    int j = Integer.parseInt(index[i]);
-                    PlayerBean bean = datas.get(j);
-                    bean.setIndex(j);
-                    bean.setName(split[i]);
-                    bean.setPhoto(user.getWxPhoto());
-                    bean.setWord(words[i]);
-                }
-            }
+        for (int i = 0; i < users.size(); i++) {
+            PlayerBean bean = datas.get(i);
+            User u = users.get(i);
+            bean.setName(u.getUsers());
+            bean.setPhoto(u.getWxPhoto());
         }
         cardAdapter.notifyDataSetChanged();
     }
@@ -150,11 +160,12 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
     }
 
     private void showFinishDialog(String success) {
-        Word word = modelDelegate.getWord(game.getWordId());
         toast(success);
         dialog.setSuccess(success);
-        dialog.setNormal("平民词：" + word.getW1());
-        dialog.setUndercover("卧底词：" + word.getW2());
+        if (null != word) {
+            dialog.setNormal("平民词：" + word.getW1());
+            dialog.setUndercover("卧底词：" + word.getW2());
+        }
         dialog.show();
     }
 }

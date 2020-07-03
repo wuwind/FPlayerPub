@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseHolder;
 import com.wuwind.undercover.R;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Word;
 
 import java.util.List;
 

@@ -7,9 +7,8 @@ import org.litepal.crud.LitePalSupport;
 /**
  * Entity mapped to table "GAME".
  */
-public class User extends LitePalSupport implements Cloneable {
+public class User extends DbSupport implements Cloneable {
 
-    private Long id;
     private String wxId;
     private String wxName;
     private String wxPhoto;
@@ -19,28 +18,19 @@ public class User extends LitePalSupport implements Cloneable {
     private String wordIS;
     private Integer ready;
     private Integer uOut;
+
+
+    private Integer gameNo;
     private String updateTime;
 
-    public User(Long id, String wxId, String wxName, String wxPhoto, String users, Long gameId, String words, String wordIS, Integer ready, Integer uOut, String updateTime) {
-        this.id = id;
-        this.wxId = wxId;
-        this.wxName = wxName;
-        this.wxPhoto = wxPhoto;
-        this.users = users;
-        this.gameId = gameId;
-        this.words = words;
-        this.wordIS = wordIS;
-        this.ready = ready;
-        this.uOut = uOut;
-        this.updateTime = updateTime;
+    public Integer getGameNo() {
+        return gameNo;
     }
 
-    public User() {
+    public void setGameNo(Integer gameNo) {
+        this.gameNo = gameNo;
     }
 
-    public User(Long id) {
-        this.id = id;
-    }
 
     @Override
     public User clone() {
@@ -50,14 +40,6 @@ public class User extends LitePalSupport implements Cloneable {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getWxId() {

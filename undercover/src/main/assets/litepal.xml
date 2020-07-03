@@ -33,6 +33,9 @@
     -->
     <list>
         <mapping class="com.wuwind.undercover.db.litepal.Room" />
+        <mapping class="com.wuwind.undercover.db.litepal.Game" />
+        <mapping class="com.wuwind.undercover.db.litepal.User" />
+        <mapping class="com.wuwind.undercover.db.litepal.Word" />
     </list>
 
     <!--

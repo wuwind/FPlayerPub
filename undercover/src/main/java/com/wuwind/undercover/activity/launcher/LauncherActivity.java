@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.edit.EditActivity;
 import com.wuwind.undercover.activity.record.RecordActivity;
+import com.wuwind.undercover.activity.room.RoomActivity;
 import com.wuwind.undercover.activity.word.WordActivity;
 import com.wuwind.undercover.db.litepal.Room;
 import com.wuwind.undercover.net.request.WordRequest;
@@ -36,7 +37,7 @@ public class LauncherActivity extends ActivityPresenter<LauncherView, LauncherMo
 
             @Override
             public void roomClick() {
-
+                startActivity(new Intent(LauncherActivity.this, RoomActivity.class));
             }
         });
         Room room = new Room();
