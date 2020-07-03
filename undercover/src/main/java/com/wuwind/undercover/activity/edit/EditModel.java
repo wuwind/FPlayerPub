@@ -2,45 +2,48 @@ package com.wuwind.undercover.activity.edit;
 
 import com.wuwind.ui.base.ModelDelegate;
 import com.wuwind.undercover.base.Constant;
-import com.wuwind.undercover.db.Game;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Game;
+import com.wuwind.undercover.db.litepal.Room;
+import com.wuwind.undercover.db.litepal.Word;
 import com.wuwind.undercover.net.request.GameAddRequest;
 import com.wuwind.undercover.utils.db.DbUtils;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
 public class EditModel extends ModelDelegate {
 
-    public long saveGame(Game game) {
-        getSequence(game);
-        long gameId = DbUtils.getGameService().insert(game);
-        return gameId;
+
+    public void saveGame(Game game) {
+        game.save();
     }
 
     public void saveGameNet(Game game) {
         getSequence(game);
         GameAddRequest request = new GameAddRequest();
         request.wordId = game.getWordId();
-        request.count= game.getCount();
-        request.normal= game.getNormal();
-        request.undercover= game.getUndercover();
-        request.blank= game.getBlank();
-        request.audience= game.getAudience();
-        request.sequence= game.getSequence();
+        request.count = game.getCount();
+        request.normal = game.getNormal();
+        request.undercover = game.getUndercover();
+        request.blank = game.getBlank();
+        request.audience = game.getAudience();
+        request.sequence = game.getSequence();
+        request.roomId = game.getRoomId();
         request.requset();
     }
 
 
     public Game getLastGame() {
-        List<Game> all = DbUtils.getGameService().findAll();
-        if (all.isEmpty())
-            return null;
-        return all.get(all.size() - 1);
+        return LitePal.findLast(Game.class);
     }
 
     public List<Word> getWords() {
-        List<Word> listBy = DbUtils.getWordService().findAll();
-        return listBy;
+        return LitePal.findAll(Word.class);
+    }
+
+    public List<Room> getRooms() {
+        return LitePal.findAll(Room.class);
     }
 
     private void getSequence(Game game) {

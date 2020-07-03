@@ -5,8 +5,8 @@ import android.content.Intent;
 import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.play.PlayActivity;
 import com.wuwind.undercover.base.Constant;
-import com.wuwind.undercover.db.Game;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Game;
+import com.wuwind.undercover.db.litepal.Word;
 import com.wuwind.undercover.utils.StrConverter;
 
 public class MainActivity extends ActivityPresenter<MainView, MainModel> {
@@ -17,7 +17,7 @@ public class MainActivity extends ActivityPresenter<MainView, MainModel> {
 
     @Override
     protected void bindEventListener() {
-        long gameId = getIntent().getLongExtra("gameId", 0);
+        int gameId = getIntent().getIntExtra("gameId", 0);
         game = modelDelegate.getGame(gameId);
         if (null == game)
             return;

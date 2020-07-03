@@ -1,36 +1,38 @@
 package com.wuwind.undercover.activity.main;
 
 import com.wuwind.ui.base.ModelDelegate;
-import com.wuwind.undercover.db.Game;
+import com.wuwind.undercover.db.litepal.Game;
 import com.wuwind.undercover.db.GameDao;
-import com.wuwind.undercover.db.Word;
+import com.wuwind.undercover.db.litepal.Word;
 import com.wuwind.undercover.utils.LogUtil;
 import com.wuwind.undercover.utils.StrConverter;
 import com.wuwind.undercover.utils.db.DbUtils;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
 public class MainModel extends ModelDelegate {
 
     public void updateGame(Game game) {
-        DbUtils.getGameService().update(game);
+        game.update(game.getId());
     }
 
-    public void getUnfinishGame() {
-        List<Game> listBy = DbUtils.getGameService().findListBy(GameDao.Properties.Finish, 0);
-//        List<Game> listBy = DbUtils.getGameService().findAll();
-        for (Game game : listBy) {
-            byte[] sequence = StrConverter.toByteArray(game.getSequence());
-            if (null != sequence) {
-                for (byte b : sequence) {
-                    LogUtil.e(b);
-                }
-            }
-        }
-    }
+//    public void getUnfinishGame() {
+//        List<Game> listBy = DbUtils.getGameService().findListBy(GameDao.Properties.Finish, 0);
+////        List<Game> listBy = DbUtils.getGameService().findAll();
+//        for (Game game : listBy) {
+//            byte[] sequence = StrConverter.toByteArray(game.getSequence());
+//            if (null != sequence) {
+//                for (byte b : sequence) {
+//                    LogUtil.e(b);
+//                }
+//            }
+//        }
+//    }
 
-    public Game getGame(long id) {
-        return DbUtils.getGameService().findById(id);
+    public Game getGame(int id) {
+        return LitePal.find(Game.class, id);
     }
 
 //    private void getSequence(Game game) {
@@ -68,7 +70,7 @@ public class MainModel extends ModelDelegate {
         }
     }
 
-    public Word getWord(long id) {
-        return DbUtils.getWordService().findById(id);
+    public Word getWord(int id) {
+        return LitePal.find(Word.class, id);
     }
 }

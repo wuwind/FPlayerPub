@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.wuwind.ui.base.OnClick;
 import com.wuwind.ui.base.ViewDelegate;
 import com.wuwind.undercover.R;
-import com.wuwind.undercover.db.Game;
+import com.wuwind.undercover.db.litepal.Game;
 
 public class EditView extends ViewDelegate<EditView.Listener> implements View.OnClickListener {
 
@@ -19,6 +19,7 @@ public class EditView extends ViewDelegate<EditView.Listener> implements View.On
     private EditText etBlank;
     private EditText etAudience;
     private AppCompatSpinner spWord;
+    private AppCompatSpinner spRoom;
     private Button btnStart;
 
     @Override
@@ -38,6 +39,7 @@ public class EditView extends ViewDelegate<EditView.Listener> implements View.On
         etBlank = (EditText) view.findViewById(R.id.et_blank);
         etAudience = (EditText) view.findViewById(R.id.et_audience);
         spWord = view.findViewById(R.id.sp_word);
+        spRoom = view.findViewById(R.id.sp_room);
         btnStart = (Button) view.findViewById(R.id.btn_start);
         btnStart.setOnClickListener(this);
     }
@@ -71,8 +73,12 @@ public class EditView extends ViewDelegate<EditView.Listener> implements View.On
         return spWord;
     }
 
+    public AppCompatSpinner getRoomSpiner() {
+        return spRoom;
+    }
+
     public void initByGame(Game game) {
-        if(null == game)
+        if (null == game)
             return;
         etCount.setText(game.getCount().toString());
         etNormal.setText(game.getNormal().toString());

@@ -10,12 +10,13 @@ import com.wuwind.undercover.net.response.WordAddResponse;
  */
 public class GameAddRequest extends Request<GameAddResponse> {
 
-    public Long wordId;
+    public Integer wordId;
     public Integer count;
     public Integer normal;
     public Integer undercover;
     public Integer blank;
     public Integer audience;
+    public Integer roomId;
     public String sequence;
     public String outSequence;
     public String lookSequence;
