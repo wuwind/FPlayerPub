@@ -12,10 +12,12 @@ import com.wuwind.undercover.net.response.RoomUpdateResponse;
 public class RoomUpdateRequest extends Request<RoomUpdateResponse> {
 
     public Room room;
+    public int id;
 
     public RoomUpdateRequest(Room room) {
         room.setId(room.getServiceId());
         this.room = room;
+        this.id = room.getServiceId();
     }
 
     @Override

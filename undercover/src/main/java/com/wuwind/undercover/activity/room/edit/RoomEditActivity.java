@@ -20,13 +20,17 @@ public class RoomEditActivity extends BaseActivity<RoomEditView, RoomEditModel> 
         viewDelegate.setLock(room.getmLock());
         viewDelegate.setOpen(room.getOpen());
         viewDelegate.setName(room.getName());
+        viewDelegate.setNum(room.getNum()+"");
+        viewDelegate.setTotal(room.getGameCount()+"");
         viewDelegate.setListener(new RoomEditView.Listener() {
 
             @Override
-            public void save(String name, int opened, int locked, int punish) {
+            public void save(String name, int opened, int locked, int punish, String num, String total) {
                 room.setOpen(opened);
                 room.setmLock(locked);
                 room.setName(name);
+                room.setNum(Integer.parseInt(num));
+                room.setGameCount(Integer.parseInt(total));
                 room.setPunish(punish);
                 modelDelegate.save(room);
             }

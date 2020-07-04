@@ -13,6 +13,8 @@ import com.wuwind.undercover.activity.room.edit.RoomEditView.Listener;
 public class RoomEditView extends ViewDelegate<Listener> implements View.OnClickListener {
 
     private EditText etName;
+    private EditText etNum;
+    private EditText etTotal;
     private Switch open;
     private Switch lock;
     private Switch punish;
@@ -34,10 +36,12 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
         switch (v.getId()) {
             case R.id.btn_save:
                 String name = etName.getText().toString();
+                String num = etNum.getText().toString();
+                String total = etTotal.getText().toString();
                 int locked = lock.isChecked() ? 1 : 0;
                 int opened = open.isChecked() ? 1 : 0;
                 int punished = open.isChecked() ? 0 : 1;
-                listener.save(name, opened, locked, punished);
+                listener.save(name, opened, locked, punished, num, total);
                 break;
             case R.id.btn_delete:
                 listener.delete();
@@ -47,6 +51,8 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
 
     private void initViews(View view) {
         etName = (EditText) view.findViewById(R.id.et_name);
+        etNum = (EditText) view.findViewById(R.id.et_num);
+        etTotal = (EditText) view.findViewById(R.id.et_total);
         open = (Switch) view.findViewById(R.id.open);
         lock = (Switch) view.findViewById(R.id.lock);
         punish = (Switch) view.findViewById(R.id.punish);
@@ -61,6 +67,16 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
         etName.setSelection(name.length());
     }
 
+    public void setNum(String num) {
+        etNum.setText(num);
+        etName.setSelection(num.length());
+    }
+
+    public void setTotal(String num) {
+        etTotal.setText(num);
+        etTotal.setSelection(num.length());
+    }
+
     public void setOpen(int opened) {
         open.setChecked(opened == 1);
     }
@@ -70,7 +86,7 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
     }
 
     public interface Listener extends OnClick {
-        void save(String name, int opened, int locked, int punish);
+        void save(String name, int opened, int locked, int punish, String num, String total);
 
         void delete();
     }
