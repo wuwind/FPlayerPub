@@ -37,7 +37,7 @@ public class GameAdapter extends RecyclerBaseAdapter<Game> {
 
             @Override
             public void refreshView(Game data, int position) {
-                tvNo.setText(position + 1 +"-"+data.getId());
+                tvNo.setText(position + 1 +"-"+data.getServiceId());
                 tvCount.setText(data.getCount().toString());
                 tvNormal.setText(data.getNormal().toString());
                 tvUndercover.setText(data.getUndercover().toString());
