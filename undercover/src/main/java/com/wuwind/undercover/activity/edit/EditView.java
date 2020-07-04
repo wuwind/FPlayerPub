@@ -47,7 +47,7 @@ public class EditView extends ViewDelegate<EditView.Listener> implements View.On
     @Override
     public void onClick(View v) {
         Game game = new Game();
-//        game.setFinish(0);
+        game.setFinish(0);
         game.setCount(getCount(etCount));
         game.setNormal(getCount(etNormal));
         game.setUndercover(getCount(etUndercover));

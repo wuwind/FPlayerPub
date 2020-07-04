@@ -36,6 +36,7 @@
         <mapping class="com.wuwind.undercover.db.litepal.Game" />
         <mapping class="com.wuwind.undercover.db.litepal.User" />
         <mapping class="com.wuwind.undercover.db.litepal.Word" />
+        <mapping class="com.wuwind.undercover.db.litepal.Advise" />
     </list>
 
     <!--

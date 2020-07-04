@@ -15,11 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.room.edit.RoomEditActivity"></activity>
-        <activity android:name=".activity.room.detail.RoomDetailActivity"></activity>
-        <activity android:name=".activity.room.RoomActivity">
-
-        </activity>
+        <activity android:name=".activity.punish.PunishActivity"></activity>
+        <activity android:name=".activity.room.edit.RoomEditActivity" />
+        <activity android:name=".activity.room.detail.RoomDetailActivity" />
+        <activity android:name=".activity.room.RoomActivity"></activity>
         <activity android:name=".activity.play.PlayActivity" />
         <activity android:name=".activity.record.RecordActivity" />
         <activity android:name=".activity.word.WordActivity" />

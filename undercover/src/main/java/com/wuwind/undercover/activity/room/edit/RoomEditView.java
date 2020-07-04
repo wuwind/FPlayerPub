@@ -15,6 +15,7 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
     private EditText etName;
     private Switch open;
     private Switch lock;
+    private Switch punish;
     private Button btnDelete;
     private Button btnSave;
 
@@ -35,7 +36,8 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
                 String name = etName.getText().toString();
                 int locked = lock.isChecked() ? 1 : 0;
                 int opened = open.isChecked() ? 1 : 0;
-                listener.save(name, opened, locked);
+                int punished = open.isChecked() ? 0 : 1;
+                listener.save(name, opened, locked, punished);
                 break;
             case R.id.btn_delete:
                 listener.delete();
@@ -47,6 +49,7 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
         etName = (EditText) view.findViewById(R.id.et_name);
         open = (Switch) view.findViewById(R.id.open);
         lock = (Switch) view.findViewById(R.id.lock);
+        punish = (Switch) view.findViewById(R.id.punish);
         btnDelete = (Button) view.findViewById(R.id.btn_delete);
         btnSave = (Button) view.findViewById(R.id.btn_save);
         btnSave.setOnClickListener(this);
@@ -67,7 +70,7 @@ public class RoomEditView extends ViewDelegate<Listener> implements View.OnClick
     }
 
     public interface Listener extends OnClick {
-        void save(String name, int opened, int locked);
+        void save(String name, int opened, int locked, int punish);
 
         void delete();
     }

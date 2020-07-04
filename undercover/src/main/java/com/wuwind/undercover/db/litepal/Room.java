@@ -15,6 +15,15 @@ public class Room extends DbSupport {
     private String password;
     private int mLock;
     private int del;
+    private int punish;
+
+    public int getPunish() {
+        return punish;
+    }
+
+    public void setPunish(int punish) {
+        this.punish = punish;
+    }
 
     public int getDel() {
         return del;

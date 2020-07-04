@@ -21,11 +21,13 @@ public class RoomEditActivity extends BaseActivity<RoomEditView, RoomEditModel> 
         viewDelegate.setOpen(room.getOpen());
         viewDelegate.setName(room.getName());
         viewDelegate.setListener(new RoomEditView.Listener() {
+
             @Override
-            public void save(String name, int opened, int locked) {
+            public void save(String name, int opened, int locked, int punish) {
                 room.setOpen(opened);
                 room.setmLock(locked);
                 room.setName(name);
+                room.setPunish(punish);
                 modelDelegate.save(room);
             }
 

@@ -1,9 +1,11 @@
 package com.wuwind.undercover.activity.launcher;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.edit.EditActivity;
+import com.wuwind.undercover.activity.punish.PunishActivity;
 import com.wuwind.undercover.activity.record.RecordActivity;
 import com.wuwind.undercover.activity.room.RoomActivity;
 import com.wuwind.undercover.activity.word.WordActivity;
@@ -39,10 +41,11 @@ public class LauncherActivity extends ActivityPresenter<LauncherView, LauncherMo
             public void roomClick() {
                 startActivity(new Intent(LauncherActivity.this, RoomActivity.class));
             }
-        });
-        Room room = new Room();
-        room.setName("007");
-        room.save();
 
+            @Override
+            public void punishClick() {
+                startActivity(new Intent(LauncherActivity.this, PunishActivity.class));
+            }
+        });
     }
 }

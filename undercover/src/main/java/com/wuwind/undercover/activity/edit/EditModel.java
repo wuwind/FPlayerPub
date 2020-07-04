@@ -16,7 +16,7 @@ public class EditModel extends ModelDelegate {
 
 
     public void saveGame(Game game) {
-        game.save();
+        game.saveFromService();
     }
 
     public void saveGameNet(Game game) {

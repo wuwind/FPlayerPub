@@ -12,19 +12,20 @@ import org.litepal.LitePal;
 
 public class PlayModel extends ModelDelegate {
 
-    public Game getGame(long id) {
+    public Game getGameLocal(long id) {
         return LitePal.find(Game.class, id);
     }
 
     public void updateGame(Game game) {
+        game.update(game.getId());
     }
 
     public Word getWordLocal(int wordId) {
         return LitePal.find(Word.class, wordId);
     }
 
-    public void finishGameNet(Game game) {
-//        new GameFinishRequest(game).requset();
+    public void finishGameNet(int serviceId, int win) {
+        new GameFinishRequest(serviceId, win).requset();
     }
 
     public void updateGameNet(Game game) {

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
-import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.play.adapter.CardAdapter;
 import com.wuwind.undercover.activity.play.dialog.FinishDialog;
 import com.wuwind.undercover.base.BaseActivity;
@@ -14,7 +13,6 @@ import com.wuwind.undercover.bean.PlayerBean;
 import com.wuwind.undercover.db.litepal.Word;
 import com.wuwind.undercover.db.litepal.Game;
 import com.wuwind.undercover.db.litepal.User;
-import com.wuwind.undercover.net.request.UserRequest;
 import com.wuwind.undercover.net.response.GameFinishResponse;
 import com.wuwind.undercover.net.response.UserResponse;
 import com.wuwind.undercover.net.response.WordByIdResponse;
@@ -22,7 +20,6 @@ import com.wuwind.undercover.utils.StrConverter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +38,7 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
     @Override
     protected void bindEventListener() {
         int gameId = getIntent().getIntExtra("gameId", 0);
-        this.game = modelDelegate.getGame(gameId);
+        this.game = modelDelegate.getGameLocal(gameId);
         if (null == game) {
             toast("没有找到游戏");
             finish();
@@ -81,7 +78,7 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         dialog = new FinishDialog(this, new FinishDialog.Listener() {
             @Override
             public void finish() {
-                finishMyself();
+                finishGame();
             }
         });
         viewDelegate.setListener(new PlayView.Listener() {
@@ -99,18 +96,25 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         modelDelegate.getWordFromNet(game.getWordId());
     }
 
+    private void finishGame() {
+        game.setFinish(1);
+        modelDelegate.finishGameNet(game.getServiceId(), game.getWin());
+        modelDelegate.updateGame(game);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         game.setOut(Arrays.toString(out.toArray()));
-        Log.e("palyactivity", " out " + game.getOut());
         modelDelegate.updateGame(game);
-        modelDelegate.finishGameNet(game);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getGameFinishResponse(GameFinishResponse response) {
-
+        if (response.code != 1) {
+            toast("提交失败");
+        }
+        finishMyself();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -150,12 +154,12 @@ public class PlayActivity extends BaseActivity<PlayView, PlayModel> {
         }
         if (undercoverNum == game.getUndercover()) {
             showFinishDialog("平民获胜");
-            game.setFinish(2);
+            game.setWin(1);
 
         }
         if (normalNum == game.getNormal()) {
             showFinishDialog("卧底获胜");
-            game.setFinish(3);
+            game.setWin(2);
         }
     }
 

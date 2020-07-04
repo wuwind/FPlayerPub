@@ -72,26 +72,6 @@ public class RoomActivity extends BaseActivity<RoomView, RoomModel> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getRoomsNet(RoomResponse response) {
         LogUtil.e(response.data.toString());
-        boolean inset;
-//        for (Room room : response.data) {
-//            inset = true;
-//            room.setServiceId(room.getId());
-//            for (Room room1 : all) {
-//                if (room.getServiceId() == room1.getServiceId()) {
-//                    inset = false;
-//                    if (room.getDel() == 1) {
-//                        room1.delete();
-//                    } else {
-//                        room.update(room1.getId());
-//                    }
-//                    break;
-//                }
-//            }
-//            if (inset && room.getDel() != 1) {
-//                boolean save = room.save();
-//                LogUtil.e("save:" + save);
-//            }
-//        }
         for (Room room : response.data) {
             if(room.getDel() == 1) {
                 room.delFromService();

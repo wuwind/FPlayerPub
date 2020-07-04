@@ -6,9 +6,11 @@ import android.widget.TextView;
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseHolder;
 import com.wuwind.undercover.R;
-import com.wuwind.undercover.db.Game;
-import com.wuwind.undercover.db.Word;
-import com.wuwind.undercover.utils.db.DbUtils;
+import com.wuwind.undercover.db.litepal.Game;
+import com.wuwind.undercover.db.litepal.Word;
+
+import org.litepal.LitePal;
+import org.litepal.Operator;
 
 import java.util.List;
 
@@ -37,38 +39,40 @@ public class RecordAdapter extends RecyclerBaseAdapter<Game> {
 
             @Override
             public void refreshView(Game data, int position) {
-                tvNo.setText(position + 1 +"-"+data.getId());
+                tvNo.setText(position + 1 +"-"+data.getServiceId());
                 tvCount.setText(data.getCount().toString());
                 tvNormal.setText(data.getNormal().toString());
                 tvUndercover.setText(data.getUndercover().toString());
                 tvBlank.setText(data.getBlank().toString());
                 tvAudience.setText(data.getAudience().toString());
                 tvWords.setText(getWords(data.getWordId()));
-                tvWinner.setText(getWinner(data.getFinish()));
+                tvWinner.setText(getWinner(data));
             }
         };
     }
 
-    private String getWords(Long id) {
-        if(null == id)
-            return "";
-        Word word = DbUtils.getWordService().findById(id);
+    private String getWords(int id) {
+        Word word = LitePal.where("serviceId=?", id+"").findFirst(Word.class);
         if(null == word)
             return "";
         return word.getW1() + "\n" + word.getW2();
     }
 
-    private String getWinner(Integer finish) {
-        if(null == finish)
-            finish = 0;
-        switch (finish) {
+    private String getWinner(Game game) {
+        Integer finish = game.getFinish();
+        if(null == finish) {
+            return "未结束";
+        }
+        Integer win = game.getWin();
+        if(null == win) {
+            return "未知";
+        }
+        switch (win) {
             case 1:
-                return "开局";
-            case 2:
                 return "平民";
-            case 3:
+            case 2:
                 return "卧底";
         }
-        return "未结束";
+        return "未知";
     }
 }

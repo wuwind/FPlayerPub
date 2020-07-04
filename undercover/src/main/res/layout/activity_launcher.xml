@@ -32,4 +32,10 @@
         android:layout_height="wrap_content"
         android:text="新建游戏" />
 
+    <Button
+        android:id="@+id/btn_punish"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="惩罚" />
 </LinearLayout>

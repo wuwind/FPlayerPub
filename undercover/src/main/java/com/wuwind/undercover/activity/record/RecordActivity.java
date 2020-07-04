@@ -7,14 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.libwuwind.uilibrary.recyclerview.RecyclerBaseAdapter;
-import com.wuwind.ui.base.ActivityPresenter;
 import com.wuwind.undercover.activity.main.MainActivity;
 import com.wuwind.undercover.activity.play.PlayActivity;
 import com.wuwind.undercover.activity.record.adapter.RecordAdapter;
 import com.wuwind.undercover.base.BaseActivity;
-import com.wuwind.undercover.db.Game;
+import com.wuwind.undercover.db.litepal.Game;
 import com.wuwind.undercover.net.response.GameResponse;
-import com.wuwind.undercover.utils.LogUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -31,8 +29,7 @@ public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
     @Override
     protected void bindEventListener() {
         RecyclerView rvRecord = viewDelegate.getRvRecord();
-        datas = modelDelegate.getGames();
-        recordAdapter = new RecordAdapter(datas);
+        recordAdapter = new RecordAdapter(null);
         rvRecord.setAdapter(recordAdapter);
 
         recordAdapter.setClickListener(new RecyclerBaseAdapter.OnItemClickListener<Game>() {
@@ -64,21 +61,20 @@ public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
         modelDelegate.getGamesNet();
     }
 
-
     private void showNewGameDialog() {
         if (null == newGameDialog) {
-            newGameDialog = new AlertDialog.Builder(this)
-                    .setMessage("再来一局？")
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            long newGameId = modelDelegate.newGame(clickGame);
-                            Intent intent = new Intent(RecordActivity.this, MainActivity.class);
-                            intent.putExtra("gameId", newGameId);
-                            startActivity(intent);
-                            finishMyself();
-                        }
-                    });
+//            newGameDialog = new AlertDialog.Builder(this)
+//                    .setMessage("再来一局？")
+//                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            long newGameId = modelDelegate.newGame(clickGame);
+//                            Intent intent = new Intent(RecordActivity.this, MainActivity.class);
+//                            intent.putExtra("gameId", newGameId);
+//                            startActivity(intent);
+//                            finishMyself();
+//                        }
+//                    });
 //                    .setNegativeButton("取消")
 //            newGameDialog = new AlertDialog()
         }
@@ -87,23 +83,23 @@ public class RecordActivity extends BaseActivity<RecordView, RecordModel> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getGamesResponse(GameResponse response) {
-//        List<Game> data = response.data;
-//        if(null == data || data.isEmpty())
-//            return;
-//        boolean isUpdate;
-//        for (Game datum : data) {
-//            isUpdate = false;
-//            for (Game game : datas) {
-//                if(datum.getId().equals(game.getId())) {
-//                    modelDelegate.updateGame(datum);
-//                    isUpdate =true;
-//                    break;
-//                }
-//            }
-//            if(!isUpdate)
-//                modelDelegate.inserteGame(datum);
-//        }
-//        datas = modelDelegate.getGames();
-//        recordAdapter.setDatas(datas);
+        if (response.code != 1) {
+            toast("请求失败");
+            return;
+        }
+        List<Game> data = response.data;
+        if (null == data || data.isEmpty())
+            return;
+        for (Game d : data) {
+            d.saveFromService();
+        }
+        refreshData();
+    }
+
+    @Override
+    protected void refreshData() {
+        super.refreshData();
+        datas = modelDelegate.getGamesLocal();
+        recordAdapter.setDatas(datas);
     }
 }
